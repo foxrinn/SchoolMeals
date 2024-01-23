@@ -27,9 +27,17 @@ public class Order {
     @JoinColumn(name = "parent_id")
     private Parent parent;
     @JsonFormat(pattern = "dd.MM.yyyy", shape = JsonFormat.Shape.STRING)
-    private LocalDate localDate = LocalDate.now();
-    @OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
-    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
-    @JsonIgnore
+    private LocalDate localDate;
+    @JsonFormat(pattern = "dd.MM.yyyy", shape = JsonFormat.Shape.STRING)
+    private LocalDate createDate = LocalDate.now();
+    @ManyToOne
+    @JoinColumn(name = "school_id", nullable = false)
+    private School school;
+    @ManyToMany
+    @JoinTable(
+            name = "dishes_orders",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "dish_id")
+    )
     private List<Dish> dishes;
 }

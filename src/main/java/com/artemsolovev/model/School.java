@@ -28,4 +28,14 @@ public class School {
     @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     @JsonIgnore
     private List<User> users;
+
+    @OneToMany(mappedBy = "school",cascade = CascadeType.ALL)
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
+    @JsonIgnore
+    private List<Dish> dishes;
+
+    @OneToMany(mappedBy = "school",cascade = CascadeType.ALL)
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
+    @JsonIgnore
+    private List<Order> orders;
 }

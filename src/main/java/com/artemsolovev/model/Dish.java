@@ -3,6 +3,7 @@ package com.artemsolovev.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -41,4 +42,14 @@ public class Dish {
     @Column(nullable = false)
     @NonNull
     private double calories;
+    @ManyToMany
+    @JoinTable(
+            name = "dishes_orders",
+            joinColumns = @JoinColumn(name = "dish_id"),
+            inverseJoinColumns = @JoinColumn(name = "order_id")
+    )
+    private List<Order> orders;
+    @ManyToOne
+    @JoinColumn(name = "school_id", nullable = false)
+    private School school;
 }

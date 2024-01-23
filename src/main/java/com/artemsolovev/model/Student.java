@@ -15,7 +15,7 @@ import java.util.List;
 @Table(name = "students")
 public class Student extends User{
     private int tableNumber;
-    private boolean presence;
+    private boolean presence = false;
     private String grade;
     @NonNull
     @ManyToOne

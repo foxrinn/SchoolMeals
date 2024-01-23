@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping
+@RequestMapping("/school")
 public class SchoolController {
     private SchoolService schoolService;
     @Autowired
@@ -36,4 +36,6 @@ public class SchoolController {
             return new ResponseEntity<>(new ResponseResult<>(null, e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
+
+
 }

@@ -3,6 +3,7 @@ package com.artemsolovev.service;
 import com.artemsolovev.model.School;
 import com.artemsolovev.repository.SchoolRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class SchoolServiceImpl implements SchoolService {
     public void add(School school) {
         try {
             this.schoolRepository.save(school);
-        } catch (Exception e) {
+        } catch (DataIntegrityViolationException e) {
             throw new IllegalArgumentException("Could not add this school");
         }
     }

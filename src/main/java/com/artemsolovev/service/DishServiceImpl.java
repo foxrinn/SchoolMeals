@@ -11,16 +11,22 @@ import java.util.List;
 @Service
 public class DishServiceImpl implements DishService {
     private DishRepository dishRepository;
+    private SchoolService schoolService;
     @Autowired
     public void setDishRepository(DishRepository dishRepository) {
         this.dishRepository = dishRepository;
     }
+    @Autowired
+    public void setSchoolService(SchoolService schoolService) {
+        this.schoolService = schoolService;
+    }
 
     @Override
-    public void add(Dish dish) {
+    public void add(Dish dish, long idSchool) {
         try {
+            dish.setSchool(this.schoolService.get(idSchool));
             this.dishRepository.save(dish);
-        } catch (Exception e) {
+        } catch (DataIntegrityViolationException e) {
             throw new IllegalArgumentException("Could not add this dish");
         }
     }
@@ -53,5 +59,12 @@ public class DishServiceImpl implements DishService {
         } catch (DataIntegrityViolationException e) {
             throw new IllegalArgumentException("Dish has already added!");
         }
+    }
+
+    @Override
+    public Dish delete(long id) {
+        Dish dish = this.get(id);
+        this.dishRepository.deleteById(id);
+        return dish;
     }
 }
